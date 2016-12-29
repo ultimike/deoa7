@@ -8,9 +8,9 @@ configure = admin/config/system/fasttoggle
 dependencies[] = fasttoggle_comment
 dependencies[] = modr8
 
-; Information added by Drupal.org packaging script on 2014-09-09
-version = "7.x-1.6"
+; Information added by Drupal.org packaging script on 2016-07-16
+version = "7.x-1.6+27-dev"
 core = "7.x"
 project = "fasttoggle"
-datestamp = "1410299043"
+datestamp = "1468660310"
 
