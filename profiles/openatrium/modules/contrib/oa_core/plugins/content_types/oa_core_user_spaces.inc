@@ -44,7 +44,7 @@ function oa_core_user_spaces_render($subtype, $conf, $args, $context = NULL) {
   $vars = array();
 
   if (isset($conf['types'])) {
-    $group_types = $conf['types'];
+    $group_types = array_filter($conf['types']);
   }
   else {
     $group_types = array(OA_SPACE_TYPE => OA_SPACE_TYPE);
@@ -196,7 +196,8 @@ function oa_core_build_space_display($spaces, $conf, $account,
       }
     }
     if ($conf['show_sections']) {
-      $sections = oa_core_space_sections($space->nid);
+      $include_archived = user_access('view trash content') || og_user_access('node', $space->nid, 'view trash content', $account);
+      $sections = oa_core_space_sections($space->nid, NODE_PUBLISHED, FALSE, array(), $include_archived);
       foreach ($sections as $id => $title) {
         $vars[$space->nid]['sections'][$id] = l($title, 'node/' . $id);
       }
@@ -435,4 +436,3 @@ function oa_core_user_spaces_edit_form_submit($form, &$form_state) {
     }
   }
 }
-

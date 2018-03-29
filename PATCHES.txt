@@ -9,7 +9,6 @@ The following patches have been applied to this project:
 - https://www.drupal.org/files/issues/drupal-106721-optimize_node_access_queries-115.patch
 - https://www.drupal.org/files/issues/node_access_grants-static-cache-11.patch
 - https://www.drupal.org/files/issues/2492993-drupal-hash-1.patch
-- https://www.drupal.org/files/issues/drupal-registry_fix-412808-32.patch
 - https://www.drupal.org/files/2097081-fix-sticky-header-column-width-7.x-6.patch
 - https://www.drupal.org/files/issues/ignore_front_end_vendor-2329453-111.patch
 - https://www.drupal.org/files/issues/d7-issues_with_required-980144-76.patch

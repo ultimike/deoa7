@@ -31,8 +31,6 @@ function ctools_node_comments_content_type_render($subtype, $conf, $panel_args, 
   }
   else if ($node->comment) {
     $block->content = ctools_comment_render($node, $conf);
-    // Update the history table, stating that this user viewed this node.
-    node_tag_new($node);
   }
 
   return $block;
@@ -91,7 +89,10 @@ function ctools_comment_render($node, $conf) {
     drupal_add_css(drupal_get_path('module', 'comment') . '/comment.css');
     comment_prepare_thread($comments);
     $build = comment_view_multiple($comments, $node);
+
+    global $pager_page_array;
     $build['pager']['#theme'] = 'pager';
+    $build['pager']['#element'] = max(array_keys($pager_page_array));
     return drupal_render($build);
   }
   return;

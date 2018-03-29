@@ -1092,3 +1092,17 @@ function ctools_flush_field_caches() {
   // Clear caches of 'Entity field' content type plugin.
   cache_clear_all('ctools_entity_field_content_type_content_types', 'cache');
 }
+
+/**
+ * Implements hook_field_insert().
+ */
+function ctools_field_insert($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  cache_clear_all('ctools_entity_from_field_get_children', 'cache', TRUE);
+}
+
+/**
+ * Implements hook_field_update().
+ */
+function ctools_field_update($entity_type, $entity, $field, $instance, $langcode, &$items) {
+  ctools_field_insert($entity_type, $entity, $field, $instance, $langcode, $items);
+}

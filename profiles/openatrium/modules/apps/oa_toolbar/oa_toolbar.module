@@ -697,8 +697,12 @@ function oa_toolbar_get_parent_list($space_id, $space_type = OA_SPACE_TYPE) {
     $parent = oa_core_get_parents_with_titles($parent_id, $space_type, NODE_PUBLISHED);
     if (!empty($parent)) {
       $keys = array_keys($parent);
-      $parents = array_merge($parents, $keys);
       $parent_id = current($keys);
+      // Check if we have recursive relations between spaces.
+      if (in_array($parent_id, $parents) || $parent_id === $space_id) {
+        break;
+      }
+      $parents = array_merge($parents, $keys);
     }
   } while (!empty($parent));
   $parents = array_reverse($parents);
@@ -732,7 +736,8 @@ function oa_toolbar_get_subspace_list($space_id, $space_type = OA_SPACE_TYPE) {
  */
 function oa_toolbar_get_section_list($space_id) {
   $items = array();
-  $sections = oa_core_space_sections($space_id, NODE_PUBLISHED);
+  $include_archived = user_access('view trash content') || og_user_access('node', $space_id, 'view trash content', NULL, FALSE, TRUE);
+  $sections = oa_core_space_sections($space_id, NODE_PUBLISHED, NULL, array(), $include_archived);
   if (!empty($sections)) {
     $items['titles'] = $sections;
     foreach ($sections as $nid => $title) {
